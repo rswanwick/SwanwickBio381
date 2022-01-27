@@ -1,0 +1,13 @@
+---
+title: "Home Page Set Up"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Homepage 
+Rachel Swanwick
+
+Link to [this page](newpage.html)
