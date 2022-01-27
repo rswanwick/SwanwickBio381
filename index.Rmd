@@ -10,4 +10,4 @@ knitr::opts_chunk$set(echo = TRUE)
 Homepage 
 Rachel Swanwick
 
-Link to [this page](newpage.html)
+Link to [Homework](newpage.html)
