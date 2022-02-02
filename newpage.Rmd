@@ -16,3 +16,5 @@ Let's make a list!
 * Bullet 1
 
 * Another bullet
+
+[Homework 3](Homework3.html)

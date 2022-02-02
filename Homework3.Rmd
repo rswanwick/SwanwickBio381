@@ -1,0 +1,41 @@
+---
+title: "Homework 3"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+1. Transform an excel style data frame turn into a what you need for a .csv file. 
+
+```
+Find: \s{2,}
+Replace: ,
+```
+I used the /s to remove any spaces and then the {2} to remove any spaces that we greater than 2. I then replaced the spaces with a comma.
+
+2. To reformat a list of names and institutions so commas are removed from the names and institutions are in parenthesis. 
+
+```
+Find:(\w+),\s(\w+),\s(.*)
+Replace:\1 \2 (\3)
+```
+
+I used the first (\w+) to capture the first part of the name and put it in parenthesis so it was something that I wanted to keep.  I then put the ,\s which captured the comma and the space which I wanted to remove.  Followed by the next (\w+) to capture the next word and repeated the same ,\s to remove the next comma and space. Lastly I put (.*) to capture the final word.  In the replace I added back in the spaces and added the parenthesis so I had the final output that I wanted.
+
+3. To create new lines between each of the names of songs. 
+
+```
+Find:(.mp3)\s
+Replace:\1\n
+```
+
+I selected each of the .mp3 file names as items that I wanted to keep and also selected the spaces.  In the replace I kept the mp3 file names and replaced the space with an enter and this put each of the song names on new lines. 
+
+4. Want to grab the 4 digit code and move it to the end of the song title. 
+
+```
+Find:(\d{4})(.+)(.mp3)
+Replace:
+```
