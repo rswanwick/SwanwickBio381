@@ -37,5 +37,34 @@ I selected each of the .mp3 file names as items that I wanted to keep and also s
 
 ```
 Find:(\d{4})(.+)(.mp3)
-Replace:
+Replace:\2_\1\3
 ```
+
+I first selected the 4 digits at the start of the title, then I selected all of the words using the .+ and finally I selected the .mp3.  I kept everything in parenthesis because I didn't want to remove anything in the transformation.  Then during the replace step, I reordered the components and added an underscore. 
+
+5. This was to take the data frame and shorten the title so it is abbreviated with just the first letter and remove one of the numeric values.
+
+```
+Find:(^\w)\w+,(\w+),\d*\.\d+,(\d+)
+Replace:\1_\2,\3
+```
+
+I first used the (^w) to let it know that I wanted to keep the first character value then put the rest of the word outside of the parenthesis so it would cut off the rest and just leave the first letter.  I removed the first comma and in the replace I added in an _. Then I kept the second word all the following comma but removed the first numeric value along with its associated decimal point.  I also kept the final digit. 
+
+6. This was another version of abbreviating the dataset with both just the fist initial, a shortened species name and only one of the numeric values. 
+
+```
+Find:(^\w)\w+,(\w{4})\w+,\d*\.\d+,(\d+)
+Replace:\1_\2,\3
+```
+
+I kept some of the code similar to previous question.  I kept the first letter using (^\w) and then moved the rest of the letter and the comma outside of the parenthesis using \w+,then I only wanted to keep the first 4 letters of the next word so I used (\w{4}) and then removed the rest of the word using \w+.  The rest of the code with removing the numeric values as the same as the previous question. 
+
+7. To rearrange the dataset so the species and genus names are fused with the first 3 letters of each followed by the two columns of numerical data in reversed order.
+
+```
+Find:(^\w{3})\w+,(\w{3})\w+,(\d*\.\d+),(\d+)
+Replace:\1\2, \4, \3
+```
+
+I captured the first 3 letters of the first word and wanted to keep it so I put it in parenthesis (^\w{3}) I then removed the rest of that word and the comma \w+,.  Next I did a similar operation with the second word (\w{3})\w+, and just added the comma back in during the replace step.  I then wanted to keep the digits so I marked to keep them but wanted to remove the comma between them for formatting so that was left outside of the parenthesis.  Then during the replace step I re-orded the numbers so they would show up in the right order during the transformation and added a comma back in between them.  
