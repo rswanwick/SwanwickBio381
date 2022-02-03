@@ -1,14 +1,9 @@
 ---
-title: "Homework"
+title: "Homework2"
 output: html_document
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
-
 [Home Page](index.html)
-
-[Homework 2](Homework2.html)
-
-[Homework 3](Homework3.html)
