@@ -180,7 +180,7 @@ Replace: ,</code></pre>
 </ol>
 <pre><code>Find:(\w+),\s(\w+),\s(.*)
 Replace:\1 \2 (\3)</code></pre>
-<p>I used the first (+) to capture the first part of the name and put it in parenthesis so it was something that I wanted to keep. I then put the ,which captured the comma and the space which I wanted to remove. Followed by the next (+) to capture the next word and repeated the same ,to remove the next comma and space. Lastly I put (.*) to capture the final word. In the replace I added back in the spaces and added the parenthesis so I had the final output that I wanted.</p>
+<p>I used the first (<code>\w</code>+) to capture the first part of the name and put it in parenthesis so it was something that I wanted to keep. I then put the ,<code>\s</code> which captured the comma and the space which I wanted to remove. Followed by the next (<code>\w</code>+) to capture the next word and repeated the same ,<code>\s</code> to remove the next comma and space. Lastly I put (.*) to capture the final word. In the replace I added back in the spaces and added the parenthesis so I had the final output that I wanted.</p>
 <ol start="3" style="list-style-type: decimal">
 <li>To create new lines between each of the names of songs.</li>
 </ol>
@@ -204,13 +204,13 @@ Replace:\1_\2,\3</code></pre>
 </ol>
 <pre><code>Find:(^\w)\w+,(\w{4})\w+,\d*\.\d+,(\d+)
 Replace:\1_\2,\3</code></pre>
-<p>I kept some of the code similar to previous question. I kept the first letter using (^) and then moved the rest of the letter and the comma outside of the parenthesis using +,then I only wanted to keep the first 4 letters of the next word so I used () and then removed the rest of the word using +. The rest of the code with removing the numeric values as the same as the previous question.</p>
+<p>I kept some of the code similar to previous question. I kept the first letter using (^<code>\w</code>) and then moved the rest of the letter and the comma outside of the parenthesis using <code>\w</code>+,then I only wanted to keep the first 4 letters of the next word so I used (<code>\w</code>{4}) and then removed the rest of the word using <code>\w</code>+. The rest of the code with removing the numeric values as the same as the previous question.</p>
 <ol start="7" style="list-style-type: decimal">
 <li>To rearrange the dataset so the species and genus names are fused with the first 3 letters of each followed by the two columns of numerical data in reversed order.</li>
 </ol>
 <pre><code>Find:(^\w{3})\w+,(\w{3})\w+,(\d*\.\d+),(\d+)
 Replace:\1\2, \4, \3</code></pre>
-<p>I captured the first 3 letters of the first word and wanted to keep it so I put it in parenthesis (^) I then removed the rest of that word and the comma +,. Next I did a similar operation with the second word ()+, and just added the comma back in during the replace step. I then wanted to keep the digits so I marked to keep them but wanted to remove the comma between them for formatting so that was left outside of the parenthesis. Then during the replace step I re-ordered the numbers so they would show up in the right order during the transformation and added a comma back in between them.</p>
+<p>I captured the first 3 letters of the first word and wanted to keep it so I put it in parenthesis (^<code>\w</code>{3}) I then removed the rest of that word and the comma <code>\w</code>+,. Next I did a similar operation with the second word (<code>\w</code>{3})<code>\w</code>+, and just added the comma back in during the replace step. I then wanted to keep the digits so I marked to keep them but wanted to remove the comma between them for formatting so that was left outside of the parenthesis. Then during the replace step I re-ordered the numbers so they would show up in the right order during the transformation and added a comma back in between them.</p>
 
 
 
