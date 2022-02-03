@@ -1,5 +1,5 @@
 ---
-title: "Home Page Set Up"
+title: "Rachel's Bio381 Homepage"
 output: html_document
 ---
 
