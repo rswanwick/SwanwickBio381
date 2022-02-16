@@ -38,4 +38,4 @@ which(queue == "aphid")
 
 # Question 5
 x <- 1:100
-y <- which(x %% 3 != 0 & x %% 7 != 0 & x %% 2 != 0)
+y <- which(x %% 3 != 0 & x %% 7 != 0 & x %% 2 != 0) 

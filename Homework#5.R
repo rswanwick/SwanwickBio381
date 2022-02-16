@@ -1,0 +1,58 @@
+# Homework #5
+# February 16, 2022
+# RHS
+
+# Question #1
+library(ggplot2)
+
+n_dims <- round(runif(n=1,min = 3, max = 10))
+vector <- c(1:(n_dims^2))
+vector <- sample(c(vector))
+m <- matrix(data=vector, nrow=n_dims, ncol=n_dims)
+print(m)
+
+# this will now transpose so the columns so the rows become columns and the columns become rows 
+m_transpose <- t(m)
+print(m_transpose)
+
+rowSums(m_transpose[c(1,9),])
+mean(m_transpose[1,])
+mean(m_transpose[9,])
+x <- eigen(m_transpose)
+print(x)
+typeof(x$values)
+typeof(x$vectors)
+
+# Question #2 
+my_matrix <- runif(16)
+my_matrix <- matrix(my_matrix, nrow=4,ncol=4,byrow=TRUE)
+print(my_matrix)
+
+my_logical <- sample( c( rep(TRUE,50), rep(FALSE,50) ) )
+print(my_logical)
+  
+my_letters <- sample(c(letters))
+print(my_letters)
+
+my_list <- list(my_matrix[2,2], my_logical[[2]],my_letters[[2]])
+print(my_list)
+
+typeof(my_list[[1]])
+typeof(my_list[[2]])
+typeof(my_list[[3]])
+
+atomic_vector <- c(my_list[[1]],my_list[[2]],my_list[[3]])
+print(atomic_vector)
+typeof(atomic_vector)
+
+# Question #3
+my_unis <- runif(26, min=0, max=10)
+my_letters <- sample(LETTERS)
+x <- data.frame(my_unis,my_letters)
+print(x)
+x[sample(1:length(x$my_unis),4),1] <- NA
+print(x)
+which(is.na(x))
+x$my_letters <- sort(x$my_letters)
+print(x)
+mean(my_unis,na.rm = TRUE)

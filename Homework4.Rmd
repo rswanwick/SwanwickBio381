@@ -1,7 +1,7 @@
 ---
-title: "Homework #4"
+title: "Homework4"
 author: "Rachel Swanwick"
-date: "2/9/2022"
+date: "2/16/2022"
 output: html_document
 ---
 
@@ -9,23 +9,16 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-[Home Page](index.html)
-
 # BIO381 Week 4: Vectors and such
 # 9 Feb 2022
 # RS
 
 # Question 1 
 x <- 1.1
-
 a <- 2.2
-
 b <- 3.3
-
 z <- x^a^b 
-
 z <- (x^a)^b 
-
 z <- 3*x^3 + 2*x^2 + 1
 
 # Question 2.a
@@ -39,31 +32,21 @@ q <- rep(5:1, c(1,2,3,4,5))
 
 # Question 3
 x <- runif(1, 1, 10)
-
 y <- runif(1, 10, 20)
 
 r <- sqrt(x^2 + y^2)
-
 t <- atan(y/x)
 
 # Question 4
 queue <- c("sheep", "fox", "owl", "ant")
-
 queue <- c(queue, "serpent")
-
 queue <- queue [-1]  #queue !="sheep"
-
 queue <- c("donkey", queue)
-
 queue <- queue [-5]
-
 queue <- queue [-3]
-
 queue <- append(queue, "aphid", after = 2)
-
 which(queue == "aphid")
 
 # Question 5
 x <- 1:100
-
-y <- which(x %% 3 != 0 & x %% 7 != 0 & x %% 2 != 0)
+y <- which(x %% 3 != 0 & x %% 7 != 0 & x %% 2 != 0) 
