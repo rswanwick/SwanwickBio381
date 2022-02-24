@@ -18,4 +18,3 @@ knitr::opts_chunk$set(echo = TRUE)
 [Homework 5](Homework5.html)
 
 [Homework 6](Lab-6.html)
-
