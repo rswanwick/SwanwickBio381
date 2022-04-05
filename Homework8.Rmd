@@ -57,9 +57,17 @@ tail(my_data)
 a1 <- aov(agb_Mg ~ treatment, data = my_data)
 summary(a1)
 
+# Creating a box plot
 library(ggplot2)
 a2 <- ggplot(data = my_data, aes(x=treatment, y=agb_Mg, fill=treatment)) + geom_boxplot()+theme_classic()
 a2
+plot(a2)
+
+# Creating a scatter plot 
+library(ggplot2)
+a3 <- ggplot(data = my_data, aes(x=treatment, y=agb_Mg, fill=treatment)) + geom_point()+theme_classic()
+a3
+plot(a3)
 ```
 
 ```{r}

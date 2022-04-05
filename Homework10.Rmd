@@ -1,0 +1,165 @@
+---
+title: "Homework10"
+author: "Rachel Swanwick"
+date: "3/30/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+[Home Page](index.html)
+```{r}
+# Question #1: Using a for loop, write a function to calculate the number of zeroes in a numeric vector. Before entering the loop, set up a counter variable counter <- 0. Inside the loop, add 1 to counter each time you have a zero in the vector. Finally, use return(counter) for the output.
+
+# -------------------------------
+# FUNCTION count_zeros
+# description: Find the number of zeroes in vector
+# inputs: x is the name of numeric vector in question
+# outputs: count number of zeroes in vector
+##################################
+count_zeroes <- function(x){
+  counter <- 0
+  for(i in 1:length(x)){
+    if(x[i] == 0){
+      counter <- counter+1
+    }
+    else{
+      counter <- counter+0
+    }
+  }
+  return(counter)
+}
+
+# end of count_zeroes
+#---------------------------------
+
+# Create a sample of data to run the function and check if it works 
+zero <- rep(0,11)
+count_zeroes(zero)
+```
+
+
+```{r}
+# Question #2: Use subsetting instead of a loop to rewrite the function as a single line of code.
+
+# -------------------------------
+# FUNCTION subsetting
+# description: subset a vector rather than using a loop to write function into single line of code 
+# inputs: x is the name of numeric vector in question
+# outputs: number of zeroes in vector
+##################################
+subsetting <- function(x){
+  return(length(x[which(x == 0)]))
+}
+
+# end of subsetting
+
+#try out the function
+c1 <- c(rep(0,11),rep(1,11)) #create dataset with 11 zeros
+subsetting(c1) #returns count of 11
+
+#---------------------------------
+```
+
+
+```{r}
+# Question #3: Write a function that takes as input two integers representing the number of rows and columns in a matrix. The output is a matrix of these dimensions in which each element is the product of the row number x the column number.
+
+# -------------------------------
+# FUNCTION m_mat
+# description: multiply row number x by column number
+# inputs: nrow= # of rows 
+#         ncol= # of columns 
+# outputs: output of the row and column number matrix dimensions 
+##################################
+m_mat <- function(a=10,b=4){
+  m1 <- matrix(nrow=a,ncol=b)
+  for(i in 1:nrow(m1)){
+    for(j in 1:ncol(m1)){
+      m1[i,j] <- i*j
+    }
+  }
+  return(m1)
+}
+
+# end of function_namefunction_name)
+#---------------------------------
+
+m_mat()
+```
+
+```{r}
+# Question #4: In the next few lectures, you will learn how to do a randomization test on your data. We will complete some of the steps today to practice calling custom functions within a for loop. Use the code from the March 31st lecture (Randomization Tests) to complete the following steps:
+
+# a) Simulate a dataset with 3 groups of data, each group drawn from a distribution with a different mean. The final data frame should have 1 column for group and 1 column for the response variable.
+
+A <- rnorm(n=25, mean=3, sd=5)
+B <- rnorm(n=25, mean=4, sd=5)
+B <- rnorm(n=25, mean=5, sd=5)
+
+# make data frame 
+groupnames <- c("A","B","C")
+response_variables <- c(A,B,C)
+
+make_dataset <- cbind(groupnames,response_variables)
+print(make_dataset)
+
+# b) Write a custom function that 1) reshuffles the response variable, and 2) calculates the mean of each group in the reshuffled data. Store the means in a vector of length 3.
+
+# -------------------------------
+# FUNCTION shuffle
+# description: to reshuffles the response variable, calculate the mean of each group in the reshuffled data and store the means in a vector of length 3
+# inputs: groups of data A,B,C
+# outputs: the matrix and vector of selected means
+##################################
+library(dplyr)
+shuffle <- function(df = make_dataset, response = response_variables){
+  colnames(make_dataset) <- c('groupnames', 'response_variables')
+  next_shuffle <- sample(1:nrow(make_dataset), replace=FALSE)
+    make_dataset <- data.frame(groupnames, next_shuffle)
+  sum_mean <- make_dataset %>% group_by(groupnames) %>% summarise(mean = mean(next_shuffle))
+      return(sum_mean)
+}
+
+shuffle()
+ # end of shufflefunction_name)
+#---------------------------------
+
+# c) Use a for loop to repeat the function in b 100 times. Store the results in a data frame that has 1 column indicating the replicate number and 1 column for each new group mean, for a total of 4 columns.
+
+library(tidyr)
+
+results <- data.frame()
+  
+for(i in 1:100){
+  shuffle <- sample(1:nrow(make_dataset), replace=FALSE)
+    data_frame_shuffle <- data.frame(groupnames, shuffle)
+  sum_mean <- data_frame_shuffle %>% group_by(groupnames) %>%    
+    summarise(mean = mean(shuffle))
+  df1 <- sum_mean %>% pivot_wider(names_from = groupnames, values_from = mean)
+  final_df <- cbind(i, df1)
+  
+  results <- rbind(results, final_df)
+}
+
+print(results)
+
+# d) Use qplot() to create a histogram of the means for each reshuffled group. Or, if you want a challenge, use ggplot() to overlay all 3 histograms in the same figure. How do the distributions of reshuffled means compare to the original means?
+
+library(ggplot2)
+
+mean_groupA <- qplot(x=A, data = results, geom = "histogram", xlab = "Mean of GroupA", ylab = "Count", color=I("black"), fill=I("limegreen"))
+
+  print(mean_groupA) 
+```
+```{r}
+mean_groupB <- qplot(x=B, data = results, geom = "histogram", xlab = "Mean of GroupA", ylab = "Count", color=I("black"), fill=I("navyblue"))
+
+  print(mean_groupB)
+```
+```{r}
+mean_groupC <- qplot(x=C, data = results, geom = "histogram", xlab = "Mean of GroupA", ylab = "Count", color=I("black"), fill=I("lightblue"))
+
+  print(mean_groupC)
+```
