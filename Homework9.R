@@ -4,41 +4,26 @@
 
 ###################################
 
-# im not sure what should go next to the function-- should i define the x/y variables or should i just put rnorm 
-
 # -------------------------------
-# FUNCTION Control_Treatment
-# description: this is the control group that is uncut 
-# inputs: plot mean of 125 Mg/ha, minimal variability
-# outputs: summary of stats for control treatments 
+# FUNCTION Treatments 
+# description: create a function that creates a data frame from all of the treatments 
+# inputs: control, resistance, resilience and transition treatment data 
+# outputs: summary of stats for all of the treatments within one single data frame
 ##################################
-Control_Treatment <- function(x_var=treatment, y_var=agb_Mg) {
+library(tidyverse)
+Treatments <- function(CT = rnorm(35, mean = 125, sd = 20), RT = rnorm(35, mean = 125, sd = 20), RL = rnorm(35, mean = 125, sd = 35), TR = rnorm(35, mean = 135, sd = 50)) {
 
-CT <- rnorm(35, mean = 125, sd = 20)
-CT <- data.frame(CT, "CT")
-colnames(CT) <- c("agb_Mg", "treatment")
-
-return("Checking...Control_Treatment")
+t_data_frame <- as.data.frame(cbind(CT,RT,RL,TR))
+  
+Longer_df <- t_data_frame %>%
+  pivot_longer(cols=1:4, 
+               names_to = "treatment", 
+               values_to = "agb_Mg")
 
 } 
-# end of Control_Treatment)
-#---------------------------------
 
-# -------------------------------
-# FUNCTION Resistance_Treatment 
-# description: uniform thinning and few trees removed
-# inputs: lower mean, still low variability
-# outputs: summary of stats for resistance treatments
-##################################
-Resistance_Treatment <- function(rnorm) {
-
-RT <- rnorm(35, mean = 125, sd = 20)  RT <- data.frame(RT, "RT")
-colnames(RT) <- c("agb_Mg", "treatment")
-
-return("Checking...Resistance_Treatment ")
-
-} 
-# end of Resistance_Treatment)
+final_output <- Treatments()
+# end of function)
 #---------------------------------
 
 # -------------------------------

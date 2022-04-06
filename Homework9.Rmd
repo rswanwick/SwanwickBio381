@@ -1,0 +1,58 @@
+---
+title: "Homework9"
+author: "Rachel Swanwick"
+date: "4/6/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+# -------------------------------
+# FUNCTION Treatments 
+# description: create a function that creates a data frame from all of the treatments 
+# inputs: control, resistance, resilience and transition treatment data 
+# outputs: summary of stats for all of the treatments within one single data frame
+##################################
+library(tidyverse)
+Treatments <- function(CT = rnorm(35, mean = 125, sd = 20), RT = rnorm(35, mean = 125, sd = 20), RL = rnorm(35, mean = 125, sd = 35), TR = rnorm(35, mean = 135, sd = 50)) {
+
+t_data_frame <- as.data.frame(cbind(CT,RT,RL,TR))
+  
+Longer_df <- t_data_frame %>%
+  pivot_longer(cols=1:4, 
+               names_to = "treatment", 
+               values_to = "agb_Mg")
+
+} 
+
+final_output <- Treatments()
+# end of function)
+#---------------------------------
+```
+
+```{r}
+library(tidyverse)
+# -------------------------------
+# FUNCTION make_hist
+# description: making a histogram for each of the treatment types 
+# inputs: treatment data frame and subset by treatments 
+# outputs: histograms
+##################################
+make_hist <- function(x=final_output, group_name="CT") {
+
+subset <- subset(x, x$treatment==group_name)
+
+a <- hist(subset$agb_Mg)
+
+print(a) 
+} 
+
+make_hist(group_name = "RT")
+make_hist(group_name = "TR")
+make_hist(group_name = "RL")
+# end of make_histfunction_name)
+#---------------------------------
+```
