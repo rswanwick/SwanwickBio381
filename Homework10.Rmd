@@ -163,3 +163,115 @@ mean_groupC <- qplot(x=C, data = results, geom = "histogram", xlab = "Mean of Gr
 
   print(mean_groupC)
 ```
+
+
+```{r}
+# e) Use the code from the upcoming April 2nd lecture (Randomization Tests) to design and conduct a randomization test for some of your own data. You will need to modify the functions that read in the data, calculate the metric, and randomize the data. Once those are set up, the program should run correctly calling your new functions. Also, to make your analysis fully repeatable, make sure you set the random number seed at the beginning (use either set.seed() in base R, or char2seed in the TeachingDemos package
+
+# FUNCTION input_data 
+# description: generate dataset for analysis  
+# inputs: demo so simulated data
+# outputs: dataframe 
+##########################################
+input_data <- function(z=NULL) {
+  if(is.null(z)) {
+    x_obs <- 1:20
+    y_obs <- x_obs + 10*rnorm(20)
+    df <- data.frame(ID=seq_along(x_obs),
+                     x_obs,
+                     y_obs)}
+  
+  return(df)
+} # end of input_data 
+# -------------------------------
+# -------------------------------
+# FUNCTION metric
+# description: determine metric for randomization 
+# inputs: 2 column data frame 
+# outputs: regression slope 
+##########################################
+metric <- function(z=NULL) {
+  if(is.null(z)){
+    x_obs <- 1:20
+    y_obs <- x_obs +10*rnorm(20)
+    z <- data.frame(ID=seq_along(x_obs),
+                    x_obs,
+                    y_obs)}
+  . <- lm(z[,3]~z[,2])
+  . <- summary(.)
+  . <- .$coefficients[2,1]
+  slope <- .
+  
+  return(slope)
+  
+}
+# -------------------------------
+# -------------------------------
+# FUNCTION shuffle
+# description: randomize data for analysis  
+# inputs: 3 column data   
+# outputs: 3 column data 
+##########################################
+shuffle <- function(z=NULL) {
+  if(is.null(z)){
+    x_obs <- 1:20
+    y_obs <- x_obs + 10*rnorm(20)
+    z <- data.frame(ID=seq_along(x_obs),
+                    x_obs,
+                    y_obs)}
+  z[,3] <- sample(z[,3])
+  
+  return(z)
+}
+# -------------------------------
+# -------------------------------
+# FUNCTION p_value
+# description: determine p-value 
+# inputs: observed metrics and simulated metrics 
+# outputs: p-value 
+##########################################
+p_value <- function(z=NULL) {
+  if(is.null(z)){
+    z <- list(rnorm(1),rnorm(1000)) }
+  p_lower <- mean(z[[2]]<=z[[1]])
+  p_upper <- mean(z[[2]]>=z[[1]])
+  
+  return(c(pL=p_lower,pU=p_upper))
+}
+#---------------------------------------
+# -------------------------------
+# FUNCTION test_plot
+# description: make histogram
+# inputs: observed metrics and simulated metrics
+# outputs: histogram graph
+##########################################
+library(ggplot2)
+test_plot <- function(z=NULL) {
+  if(is.null(z)) {
+    z <- list(rnorm(1),rnorm(1000)) }
+  df <- data.frame(ID=seq_along(z[[2]]), sim_x=z[[2]])
+  p1 <- ggplot(data=df, mapping=aes(x=sim_x))
+  p1 + geom_histogram(mapping=aes(fill=I("limegreen"),
+                                  color=I("black"))) +
+    geom_vline(aes(xintercept=z[[1]],col="purple"))
+  
+}
+#--------------------------------
+#############################################
+
+sim_length <- 2000
+sim_vector <- rep(NA,sim_length)
+df <- input_data() 
+x_obs <- metric(df) 
+
+for (i in seq_len(sim_length)) {
+  sim_vector[i] <- metric(shuffle(df))
+}
+
+slopes <- list(x_obs,sim_vector)
+p_value(slopes)
+
+test_plot(slopes)
+
+```
+
