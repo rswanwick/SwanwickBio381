@@ -1,0 +1,41 @@
+---
+title: "Homework12"
+author: "Rachel Swanwick"
+date: "4/13/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+[Home Page](index.html)
+```{r}
+# Question #1: For this exercise, use your newly-developed ggplot chops to create some nice graphs from your own data (If you do not have a good data frame to use for graphics, use one of the many built-in data frames from R (other than mpg, which we are using in class)). Experiment with different themes, theme base sizes, aesthetics, mappings, and faceting. When you are finished, try exporting them to high quality pdfs, jpgs, eps files, or other formats that you would use for submission to a journal.
+
+library(ggplot2)
+library(ggthemes)
+library(patchwork)
+
+d <- mtcars # use built in mpg data frame in R 
+str(d)
+
+table(d$mpg)
+
+p2 <- ggplot(data=d, mapping=aes(x=disp,y=mpg)) + 
+ geom_point(size=6,shape=21,color="black",fill="limegreen") + geom_smooth(color="black") + 
+  labs(title="Homework 12 Graph",
+      subtitle="Simulated data for the graph",
+      x="x-axis",
+      y="y-axis")
+
+print(p2)
+
+p1 <- p2 + theme_grey(base_size=20,base_family="serif")
+
+
+print(p1)
+
+ggsave(filename="MyPlot.pdf",plot=p1, device="pdf",width=20,height=20,units="cm",dpi=300)
+
+```
+
